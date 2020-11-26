@@ -12,7 +12,21 @@ set -e # Exit with nonzero exit code if anything fails
 
 for SPEC in $FILES; do
   echo Running bikeshed on $SPEC
-  bikeshed -f spec $SPEC
+  if which bikeshed; then
+    bikeshed -f spec $SPEC
+  else
+    SPEC_OUT=${SPEC%.bs}.html
+    HTTP_STATUS=$(curl https://api.csswg.org/bikeshed/ \
+                       --output ${SPEC_OUT} \
+                       --write-out "%{http_code}" \
+                       --header "Accept: text/plain, text/html" \
+                       -F file=@${SPEC})
+    if [ "$HTTP_STATUS" -ne "200" ]; then
+      echo ""; cat $SPEC_OUT; echo ""
+      rm -f $SPEC_OUT
+      exit 1
+    fi
+  fi
 done
 
 OUTDIR=${1:-out}
@@ -23,8 +37,8 @@ if [ -d $OUTDIR ]; then
   for SPEC in $FILES; do
     SPEC_OUT=${SPEC%.bs}.html
     if [ -f $SPEC_OUT ]; then
-      echo Copy $SPEC_OUT into $OUTDIR/$SPEC_OUT
-      cp $SPEC_OUT $OUTDIR/$SPEC_OUT
+      echo Move $SPEC_OUT into $OUTDIR/$SPEC_OUT
+      mv $SPEC_OUT $OUTDIR/$SPEC_OUT
     fi
   done
 fi
