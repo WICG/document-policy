@@ -502,7 +502,7 @@ A human-readable <a href="http://www.w3.org/community/about/agreements/cla-deed/
     <li>
      <a href="#other-and-related-mechanisms"><span class="secno">3</span> <span class="content">Other and related mechanisms</span></a>
      <ol class="toc">
-      <li><a href="#relation-to-feature-policy"><span class="secno">3.1</span> <span class="content">Relation to Feature Policy</span></a>
+      <li><a href="#relation-to-permissions-policy"><span class="secno">3.1</span> <span class="content">Relation to Permissions Policy</span></a>
       <li><a href="#relation-to-csp"><span class="secno">3.2</span> <span class="content">Relation to Content Security Policy</span></a>
       <li><a href="#relation-to-sandboxing"><span class="secno">3.3</span> <span class="content">Relation to Sandboxing</span></a>
      </ol>
@@ -609,26 +609,27 @@ A human-readable <a href="http://www.w3.org/community/about/agreements/cla-deed/
     <p>Document Policy is similar in scope to some existing mechanisms for document
   configuration, though there are significant differences from each.</p>
     <section>
-     <h3 class="heading settled" data-level="3.1" id="relation-to-feature-policy"><span class="secno">3.1. </span><span class="content">Relation to Feature Policy</span><a class="self-link" href="#relation-to-feature-policy"></a></h3>
-     <p>Feature Policy <a data-link-type="biblio" href="#biblio-feature-policy">[FEATURE-POLICY]</a> is another mechanism which allows authors
-    to configure features in documents, and is similar in scope, though it uses
-    a different inheritance mechanism, which makes it more suitable for certain
-    types of features, separate from those which are suitable for control by
-    document policy.</p>
-     <p>Historically, document policy was created as a response to a number of
-    proposed feature additions to feature policy, which either didn’t quite fit
-    the existing 'feature' model, or required significant additional complexity
-    to be added to the feature policy spec. This included features with
-    parameters, features with optional inheritance into subframes, and features
-    which would inherit differently in popups than in other top-level browsing
-    contexts.</p>
-     <p>Those features are now proposed to be covered by document policy, and
-    feature policy is used for features where delegation is the primary concern.
-    Feature policy features are boolean-valued (either enabled or disabled), can
-    never be re-enabled in a child frame if disabled in parent, and generally
-    follow the model of "available in top-level browsing contexts and their
-    same-origin children; must be delegated to cross-origin frames."</p>
-     <p>In contrast, features controlled by document policy may take parameters, and
+     <h3 class="heading settled" data-level="3.1" id="relation-to-permissions-policy"><span class="secno">3.1. </span><span class="content">Relation to Permissions Policy</span><a class="self-link" href="#relation-to-permissions-policy"></a></h3>
+     <p>Permissions Policy <a data-link-type="biblio" href="#biblio-permissions-policy">[PERMISSIONS-POLICY]</a> is another mechanism which allows
+    authors to configure features in documents, and is similar in scope, though
+    it use a different inheritance mechanism, which makes it more suitable for
+    certain types of features, separate from those which are suitable for
+    control by Document Policy.</p>
+     <p>Historically, Document Policy was created as a response to a number of
+    proposed feature additions to Permissions Policy (named Feature Policy at
+    the time), which either didn’t quite fit the existing 'feature' model, or
+    required significant additional complexity to be added to the Permissions
+    Policy spec. This included features with parameters, features with optional
+    inheritance into subframes, and features which would inherit differently in
+    popups than in other top-level browsing contexts.</p>
+     <p>Those features are now proposed to be covered by Document Policy, and
+    Permissions Policy is used for features where delegation is the primary
+    concern. Permissions Policy features are boolean-valued (either enabled or
+    disabled), can never be re-enabled in a child frame if disabled in its
+    parent, and generally follow the model of "available in top-level browsing
+    contexts and their same-origin children; must be delegated to cross-origin
+    frames."</p>
+     <p>In contrast, features controlled by Document Policy may take parameters, and
     those parameters may have unrelated values in different frames (constraining
     a feature in a parent frame does not necessarily constrain its child
     frames.)</p>
@@ -962,7 +963,7 @@ post-load tasks and completely loaded immediately.</p>
          <ol start="7">
           <li data-md>
            <p>Let <var>document</var> be a new Document, whose type is <var>type</var>, content type is <var>contentType</var>,
-origin is <var>origin</var>, feature policy is <var>featurePolicy</var>, active sandboxing flag set is <var>finalSandboxFlags</var>, and document policy is <var>documentPolicy</var>.</p>
+origin is <var>origin</var>, permissions policy is <var>permissionsPolicy</var>, active sandboxing flag set is <var>finalSandboxFlags</var>, and document policy is <var>documentPolicy</var>.</p>
          </ol>
        </ul>
      </ul>
@@ -1804,7 +1805,7 @@ calling <a data-link-type="dfn" href="#determine-compatibility" id="ref-for-dete
    <dd>Mike West. <a href="https://www.w3.org/TR/CSP3/"><cite>Content Security Policy Level 3</cite></a>. 29 June 2021. WD. URL: <a href="https://www.w3.org/TR/CSP3/">https://www.w3.org/TR/CSP3/</a>
    <dt id="biblio-ecma-262">[ECMA-262]
    <dd><a href="https://tc39.es/ecma262/multipage/"><cite>ECMAScript Language Specification</cite></a>. URL: <a href="https://tc39.es/ecma262/multipage/">https://tc39.es/ecma262/multipage/</a>
-   <dt id="biblio-feature-policy">[FEATURE-POLICY]
+   <dt id="biblio-permissions-policy">[PERMISSIONS-POLICY]
    <dd>Ian Clelland. <a href="https://www.w3.org/TR/permissions-policy-1/"><cite>Permissions Policy</cite></a>. 16 July 2020. WD. URL: <a href="https://www.w3.org/TR/permissions-policy-1/">https://www.w3.org/TR/permissions-policy-1/</a>
   </dl>
   <h2 class="no-num no-ref heading settled" id="issues-index"><span class="content">Issues Index</span><a class="self-link" href="#issues-index"></a></h2>
