@@ -64,30 +64,31 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
   configuration, though there are significant differences from each.
 
   <section>
-    ## Relation to Feature Policy ## {#relation-to-feature-policy}
+    ## Relation to Permissions Policy ## {#relation-to-permissions-policy}
 
-    Feature Policy [[FEATURE-POLICY]] is another mechanism which allows authors
-    to configure features in documents, and is similar in scope, though it uses
-    a different inheritance mechanism, which makes it more suitable for certain
-    types of features, separate from those which are suitable for control by
-    document policy.
+    Permissions Policy [[PERMISSIONS-POLICY]] is another mechanism which allows
+    authors to configure features in documents, and is similar in scope, though
+    it use a different inheritance mechanism, which makes it more suitable for
+    certain types of features, separate from those which are suitable for
+    control by Document Policy.
 
-    Historically, document policy was created as a response to a number of
-    proposed feature additions to feature policy, which either didn't quite fit
-    the existing 'feature' model, or required significant additional complexity
-    to be added to the feature policy spec. This included features with
-    parameters, features with optional inheritance into subframes, and features
-    which would inherit differently in popups than in other top-level browsing
-    contexts.
+    Historically, Document Policy was created as a response to a number of
+    proposed feature additions to Permissions Policy (named Feature Policy at
+    the time), which either didn't quite fit the existing 'feature' model, or
+    required significant additional complexity to be added to the Permissions
+    Policy spec. This included features with parameters, features with optional
+    inheritance into subframes, and features which would inherit differently in
+    popups than in other top-level browsing contexts.
 
-    Those features are now proposed to be covered by document policy, and
-    feature policy is used for features where delegation is the primary concern.
-    Feature policy features are boolean-valued (either enabled or disabled), can
-    never be re-enabled in a child frame if disabled in parent, and generally
-    follow the model of "available in top-level browsing contexts and their
-    same-origin children; must be delegated to cross-origin frames."
+    Those features are now proposed to be covered by Document Policy, and
+    Permissions Policy is used for features where delegation is the primary
+    concern. Permissions Policy features are boolean-valued (either enabled or
+    disabled), can never be re-enabled in a child frame if disabled in its
+    parent, and generally follow the model of "available in top-level browsing
+    contexts and their same-origin children; must be delegated to cross-origin
+    frames."
 
-    In contrast, features controlled by document policy may take parameters, and
+    In contrast, features controlled by Document Policy may take parameters, and
     those parameters may have unrelated values in different frames (constraining
     a feature in a parent frame does not necessarily constrain its child
     frames.)
@@ -504,8 +505,8 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
       * Change step 6 (renumbered now to 7) to read:
         7. Let <var ignore>document</var> be a new Document, whose type is <var
           ignore>type</var>, content type is <var ignore>contentType</var>,
-          origin is <var ignore>origin</var>, feature policy is <var
-          ignore>featurePolicy</var>, active sandboxing flag set is <var
+          origin is <var ignore>origin</var>, permissions policy is <var
+          ignore>permissionsPolicy</var>, active sandboxing flag set is <var
           ignore>finalSandboxFlags</var>, and document policy is <var
           ignore>documentPolicy</var>.
   </section>
