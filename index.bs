@@ -328,17 +328,18 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
     <a>document policy directive</a>.
 
     A <dfn export>document policy directive</dfn> is an element of a
-    <a>serialized document policy</a>, and consists of a <a>directive name</a>,
-    which is an sh-token, and associated <a
-    for="document policy directive">parameters</a>.
+    <a>serialized document policy</a>, and consists of a <a
+    for="document policy directive">directive name</a>, which is an sh-token,
+    and associated <a
+    href="#document-policy-directive-parameters">parameters</a>.
 
-    A <dfn>directive name</dfn> may be one of:
+    A <dfn for="document policy directive">directive name</dfn> may be one of:
 
     * The <a for="configuration point">name</a> of a <a>configuration point</a>
     * The Token "`*`".
 
-    A <dfn>policy value</dfn> is an element of the <a for="configuration point">range</a>
-    for the named <a>configuration point</a>.
+    A <dfn>policy value</dfn> is an element of the <a for="configuration
+    point">range</a> for the named <a>configuration point</a>.
   </section>
 
     ### Parameters ### {#document-policy-directive-parameters}
@@ -346,24 +347,26 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
     Any <a>document policy directive</a> may include a parameter named
     `report-to`, whose value must be a string.
 
-    A <a>document policy directive</a> whose <a>directive name</a> names a
-    <a>configuration point</a> with <a>type</a> `boolean` has no required
-    parameters.
+    A <a>document policy directive</a> whose <a for="document policy
+    directive">directive name</a> names a <a>configuration point</a> with
+    <a>type</a> `boolean` has no required parameters.
 
-    A <a>document policy directive</a> whose <a>directive name</a> names a
-    <a>configuration point</a> with <a>type</a> `integer` has a required
-    parameter, whose value must be an integer in the <a>configuration
-    point</a>'s <a>range</a>.
+    A <a>document policy directive</a> whose <a for="document policy
+    directive">directive name</a> names a <a>configuration point</a> with
+    <a>type</a> `integer` has a required parameter, whose value must be an
+    integer in the <a>configuration point</a>'s <a for="configuration
+    point">range</a>.
 
-    A <a>document policy directive</a> whose <a>directive name</a> names a
-    <a>Configuration point</a> with <a>type</a> `float` has a required
-    parameter, whose value must be an decimal in the <a>configuration
-    point</a>'s <a>range</a>.
+    A <a>document policy directive</a> whose <a for="document policy
+    directive">directive name</a> names a <a>Configuration point</a> with
+    <a>type</a> `float` has a required parameter, whose value must be a decimal
+    in the <a>configuration point</a>'s <a for="configuration point">range</a>.
 
-    A <a>document policy directive</a> whose <a>directive name</a> names a
-    <a>configuration point</a> with <a>type</a> `enum` has a required parameter,
-    whose value must be 'true', and whose name must be a token in the
-    <a>configuration point</a>'s <a>range</a>.
+    A <a>document policy directive</a> whose <a for="document policy
+    directive">directive name</a> names a <a>configuration point</a> with
+    <a>type</a> `enum` has a required parameter, whose value must be 'true',
+    and whose name must be a token in the <a>configuration point</a>'s <a
+    for="configuration point">range</a>.
 
     Examples:
         * `boolean-feature`
@@ -426,7 +429,7 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
     returned with the request.
 
     The header's value is the <a href="#serialization"></a> of one or more
-    <a>policy directive</a>s
+    <a>document policy directive</a>s
   </section>
 </section>
   <section>
@@ -481,10 +484,10 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
           an <a>HTML document</a> in <a>quirks mode</a>, whose <a>content
           type</a> is `"text/html"`, <a>origin</a> is <var ignore>origin</var>,
           <a>active sandboxing flag set</a> is <var ignore>sandboxFlags</var>,
-          <a>feature policy</a> is <var ignore>feature policy</var>, document
-          policy is identical to <var ignore>browsingContext</var>'s <a>required
-          document policy</a>, and which is both ready for post-load tasks and
-          completely loaded immediately.
+          <a>permissions policy</a> is <var ignore>permissions policy</var>,
+          document policy is identical to <var ignore>browsingContext</var>'s
+          <a>required document policy</a>, and which is both ready for
+          post-load tasks and completely loaded immediately.
 
     * In the [=process a navigate fetch=] algorithm:
       * Add the following step after step 5:
