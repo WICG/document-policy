@@ -543,20 +543,6 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
           <var ignore>internalResponse</var> to <var ignore>request</var> be
           blocked due to document policy</a>
 
-    * Add the following algorithm to [[FETCH#terminology-headers]]:
-       * To <dfn export>get and parse a structured header</dfn> |name| as |type|
-         from [=Headers/header list=] |list|, run these steps:
-
-         1. Let |input| be the result of getting |name| from |list|.
-         2. If |input| is null, then return null.
-         3. Let |value| be the result of running the <a
-           href="https://tools.ietf.org/html/draft-ietf-httpbis-header-structure-14#section-4.2">Parsing
-           Header Fields into Structured Headers</a> algorithm with |input| as
-           <var ignore>input_string</var> and |type| as <var
-           ignore>header_type</var>. [[!HEADER-STRUCTURE]]
-         4. If the previous step fails, return null.
-         5. Return |value|.
-
   </section>
 </section>
 
@@ -746,9 +732,9 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
        1. If |request| has a <a
          data-lt="request-required-document-policy">required document
          policy</a>, then
-           1. Let |documentPolicy| be the result of getting and parsing the
-             structured header `Document-Policy` as "list" from |response|'s
-             [=response/header list=].
+           1. Let |documentPolicy| be the result of calling [=header list/get a
+             structured field value=] with header name `Document-Policy` and
+             type "`list`" from |response|'s [=response/header list=].
            1. If |documentPolicy| is not <a
              data-lt="is policy compatible">compatible</a> with |request|'s <a
              data-lt="request-required-document-policy">required document
