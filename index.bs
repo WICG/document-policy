@@ -192,10 +192,10 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
     is a <a>document policy</a>. A <a>browsing context</a> with a null <a>opener
     browsing context</a> has an empty <a>required document policy</a>.
 
-    A <a>browsing context</a> has a <dfn>nested context required document
-    policy</dfn>, which is a <a>document policy</a>.
+    A <a>Document</a> has a <dfn>nested context required document policy</dfn>,
+    which is a <a>document policy</a>.
 
-    A <a>Document</a> has a <dfn>declared document policy</dfn>, which is a
+    A <a>Document</a> has a <dfn for="Document">document policy</dfn>, which is a
     <a>document policy</a>.
 
     A <a>Document</a> has a <dfn>report-only document policy</dfn>, which is a
@@ -468,9 +468,13 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
         policy</a> to the `iframe`'s <a>nested browsing context</a>, when it is
         initialized. Its value must be a <a>serialized document policy</a>.
 
-    * In [[HTML#the-document-object]], add the following line:
+    * In [[HTML#the-document-object]], add the following lines:
       * The <a>Document</a> has a <b>document policy</b>, which is a <a>document
         policy</a>, which is initially empty.
+
+      * The <a>Document</a> has a <b>nested context required document
+        policy</b>, which is a <a>document policy</a>, which is initially
+        empty.
 
     * In the <a>creating a new browsing context</a> algorithm:
       * Add the following step after step 5:
@@ -497,18 +501,25 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
           <var ignore>browsingContext</var>'s <a>required document policy</a>.
 
     * In the <a>initialise the document object</a> algorithm:
-      * Add the following step after step 3:
+      * Add the following steps after step 3:
         4. Let <var ignore>documentPolicy</var> be the result of <a
           data-lt="create-document-policy">creating a document policy</a> for
           <var ignore>browsingContext</var> from <var ignore>response</var>.
 
-      * Change step 6 (renumbered now to 7) to read:
+        5. Let <var ignore>nestedContextRequiredDocumentPolicy</var> be the
+          result of <a
+          data-lt="create-nested-context-required-document-policy">creating a
+          nested context document policy</a> for
+          <var ignore>browsingContext</var> from <var ignore>response</var>.
+
+      * Change step 6 (renumbered now to 8) to read:
         7. Let <var ignore>document</var> be a new Document, whose type is <var
           ignore>type</var>, content type is <var ignore>contentType</var>,
           origin is <var ignore>origin</var>, permissions policy is <var
           ignore>permissionsPolicy</var>, active sandboxing flag set is <var
-          ignore>finalSandboxFlags</var>, and document policy is <var
-          ignore>documentPolicy</var>.
+          ignore>finalSandboxFlags</var>, document policy is <var
+          ignore>documentPolicy</var>, and nested context required document
+          policy is <var ignore>nestedContextRequiredDocumentPolicy</var>.
   </section>
 
   <section>
@@ -553,9 +564,9 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
     ## <dfn export>Is policy compatible</dfn>? ## {#algo-is-policy-compatible}
 
     <div class="algorithm" data-algorithm="is-policy-compatible">
-    Given a <a>required document policy</a> |requiredPolicy| and a <a>declared
-    document policy</a> |declaredPolicy|, this algorithm returns true if
-    |declaredPolicy| is compatible with |requiredPolicy|, or false otherwise.
+    Given two <a>document policies</a>, |requiredPolicy| and |declaredPolicy|,
+    this algorithm returns true if |declaredPolicy| is compatible with
+    |requiredPolicy|, or false otherwise.
 
     1. For each |configuration point| → |value| in |requiredPolicy|:
         1. If |declaredPolicy|[|configuration point|] does not exist, then
@@ -568,38 +579,17 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
   </section>
 
   <section>
-    ## <dfn export>Process response policy</dfn> ## {#algo-process-response-policy}
-
-    <div class="algorithm" data-algorithm="process-response-policy">
-    Given a [=response=] (|response|), this algorithm returns a <a>declared
-    document policy</a>.
-
-    1. Abort these steps if |response|'s <a for="response">header list</a> does
-        not contain a [=header=] whose [=name=] is
-        "<code>Document-Policy</code>".
-    1. Let |header| be the concatenation of the [=value=]s of all [=header=]
-        fields in |response|'s <a for="response">header list</a> whose name is
-        "<code>Document-Policy</code>", separated by U+002C (,) (according to
-        [RFC7230, 3.2.2]).
-    1. Let |document policy| be the result of executing <a>Parse document
-        policy</a> on |header|.
-    1. Return |document policy|.
-
-    </div>
-  </section>
-
   <section>
     ## <dfn export>Parse document policy</dfn> ## {#algo-parse-document-policy}
 
     <div class="algorithm" data-algorithm="parse-document-policy">
-    Given a string (|policyString|), this algorithm returns a <a>document
+    Given a dictionary (|header|), this algorithm returns a <a>document
     policy</a>, if it can be parsed as one, or else fails.
 
+    1. If |header| is null, then return null.
     1. Let |policy| be a new ordered map.
     1. Let |defaultEndpoint| be a new string, set to null.
-    1. Let |dict| be the result of parsing |policyString| as a dictionary.
-    1. If parsing fails, then fail.
-    1. For each |name|->(|value|,|parameters|) in |dict|,
+    1. For each |name|->(|value|,|parameters|) in |header|,
         1. Let |currentEndpoint| be a new string, set to null.
         1. If |parameters|["report-to"] exists, and is a string, then:
             1. Set |currentEndpoint| to the value of |parameters|["report-to"].
@@ -685,8 +675,8 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
     a new <a>Document Policy</a>.
 
     1. If |browsingContext| is a <a>nested browsing context</a>, then
-        1. Let |requiredPolicy| be a clone of |browsingContext|'s <a>browsing
-            context container</a>'s <a>nested context required document
+        1. Let |requiredPolicy| be a clone of |browsingContext|'s [=container document=]'s
+            <a>nested context required document
             policy</a>.
         1. If |browsingContext|'s <a>browsing context container</a> has a
             "policy" attribute, then
@@ -702,7 +692,7 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
   </section>
 
   <section>
-    ## <dfn export data-lt="create-document-policy">Create a document Policy for a browsing context from response</dfn> ## {#algo-create-document-policy}
+    ## <dfn export data-lt="create-document-policy">Create a document Policy from response</dfn> ## {#algo-create-document-policy}
 
     <div class="algorithm" data-algorithm="create-document-policy">
     Given a <a>browsing context</a> (|browsingContext|) and a [=response=]
@@ -711,11 +701,36 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
     1. Let |requiredPolicy| be the result of running <a
         data-lt="create-for-browsingcontext">Create a required policy for a
         browsing context</a> given |browsingContext|.
-    1. Let |declaredPolicy| be the result of running <a>Process response
-        policy</a> on |response|.
+    1. Let |header| be the result of calling [=header list/get a
+             structured field value=] with header name `Document-Policy` and
+             type "`dictionary`" from |response|'s [=response/header list=].
+    1. Let |declaredPolicy| be the result of executing <a>Parse document
+        policy</a> on |header|.
     1. If |declaredPolicy| is <a href="#is-policy-compatible">compatible</a>
        with |requiredPolicy|, then return |declaredPolicy|.
     1. Throw an exception.
+
+    </div>
+  </section>
+
+  <section>
+    ## <dfn export data-lt="create-nested-context-required-document-policy">Create a nested context required document policy from response</dfn> ## {#algo-create-nested-context-required-document-policy}
+
+    <div class="algorithm" data-algorithm="create-nested-context-required-document-policy">
+    Given a <a>browsing context</a> (|browsingContext|) and a [=response=]
+    (|response|), this algorithm returns a new <a>Document Policy</a>.
+
+    1. Let |requiredPolicy| be a clone of |browsingContext|'s <a>required document policy</a>.
+    1. Let |header| be the result of calling [=header list/get a
+             structured field value=] with header name `Required-Document-Policy` and
+             type "`dictionary`" from |response|'s [=response/header list=].
+    1. Let |declaredNestedPolicy| be the result of executing <a>Parse document
+        policy</a> on |header|.
+    1. For each |feature| -> |value| in |declaredNestedPolicy|:
+                1. If |requiredPolicy|[|feature|] does not exist, or if |value|
+                  is stricter than |requiredPolicy|[|feature|], then set
+                  |requiredPolicy|[|feature|] to |value|.
+    1. Return |requiredPolicy|.
 
     </div>
   </section>
@@ -734,7 +749,7 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
          policy</a>, then
            1. Let |documentPolicy| be the result of calling [=header list/get a
              structured field value=] with header name `Document-Policy` and
-             type "`list`" from |response|'s [=response/header list=].
+             type "`dictionary`" from |response|'s [=response/header list=].
            1. If |documentPolicy| is not <a
              data-lt="is policy compatible">compatible</a> with |request|'s <a
              data-lt="request-required-document-policy">required document
