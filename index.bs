@@ -196,7 +196,7 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
     which is a <a>document policy</a>.
 
     A <a>Document</a> has a <dfn for="Document">document policy</dfn>, which is a
-    <a>document policy</a>.
+    <a for="/">document policy</a>.
 
     A <a>Document</a> has a <dfn>report-only document policy</dfn>, which is a
     <a>document policy</a>.
