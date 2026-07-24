@@ -27,6 +27,12 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
     type: dfn
       text: creating a new browsing context
       text: initialise the document object
+  urlPrefix: workers.html
+    type: dfn
+      text: run a worker
+spec: FETCH; urlPrefix: https://fetch.spec.whatwg.org/
+    type: dfn
+      text: local scheme
 </pre>
 <pre class="biblio">
 {
@@ -520,6 +526,26 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
           ignore>finalSandboxFlags</var>, document policy is <var
           ignore>documentPolicy</var>, and nested context required document
           policy is <var ignore>nestedContextRequiredDocumentPolicy</var>.
+
+    * In [[HTML#the-workerglobalscope-common-interface]], add the following line:
+      * A <a>WorkerGlobalScope</a> has a <b>document policy</b>, which is a
+        <a>document policy</a>, which is initially empty.
+
+    * In the <a>run a worker</a> algorithm:
+      * After the step which sets up the worker's <var ignore>worker global
+        scope</var> from the fetched <var ignore>response</var>, add the
+        following step:
+
+        1. Set <var ignore>worker global scope</var>'s document policy to the
+          result of <a data-lt="create-document-policy-for-worker">creating a
+          document policy for a worker</a> given <var ignore>outside
+          settings</var> and <var ignore>response</var>.
+
+      Note: A worker inherits its creator's document policy when its script is
+      fetched from a [=local scheme=] URL (such as `blob:`, `data:`, or
+      `about:blank`), because such responses carry no headers of their own. When
+      the worker script is fetched over the network, its document policy is taken
+      from the response's `Document-Policy` header instead.
   </section>
 
   <section>
@@ -711,6 +737,39 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
     1. Throw an exception.
 
     </div>
+  </section>
+
+  <section>
+    ## <dfn export data-lt="create-document-policy-for-worker">Create a document policy for a worker</dfn> ## {#algo-create-document-policy-for-worker}
+
+    <div class="algorithm" data-algorithm="create-document-policy-for-worker">
+    Given an <a>environment settings object</a> (|outsideSettings|) and a
+    [=response=] (|response|), this algorithm returns a <a>document policy</a>.
+
+    1. Let |creatorPolicy| be null.
+    1. If |outsideSettings|'s <a>global object</a> is a <a>WorkerGlobalScope</a>,
+        then set |creatorPolicy| to |outsideSettings|'s <a>global object</a>'s
+        document policy.
+    1. Otherwise, set |creatorPolicy| to |outsideSettings|'s <a>global
+        object</a>'s <a>associated Document</a>'s document policy.
+    1. If |response|'s <a for="response">URL</a>'s [=url/scheme=] is a
+        [=local scheme=], then return a clone of |creatorPolicy|.
+    1. Let |header| be the result of calling [=header list/get a structured
+        field value=] with header name `Document-Policy` and type
+        "`dictionary`" from |response|'s [=response/header list=].
+    1. Let |declaredPolicy| be the result of executing <a>Parse document
+        policy</a> on |header|.
+    1. If |declaredPolicy| is null, then return a new empty <a>document
+        policy</a>.
+    1. Return |declaredPolicy|.
+
+    </div>
+
+    Note: Unlike a document, a worker has no [=required document policy=], so a
+    worker's declared policy is applied as-is rather than being checked for
+    compatibility. Local-scheme workers inherit their creator's document policy
+    directly, mirroring how the policy container is inherited for such workers in
+    [[HTML]].
   </section>
 
   <section>
