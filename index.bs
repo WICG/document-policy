@@ -31,8 +31,8 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
     type: dfn
       text: run a worker
 spec: FETCH; urlPrefix: https://fetch.spec.whatwg.org/
-    type: dfn
-      text: local scheme
+  type: dfn
+    text: local scheme
 </pre>
 <pre class="biblio">
 {
@@ -528,11 +528,11 @@ spec: FETCH; urlPrefix: https://fetch.spec.whatwg.org/
           policy is <var ignore>nestedContextRequiredDocumentPolicy</var>.
 
     * In [[HTML#the-workerglobalscope-common-interface]], add the following line:
-      * A <a>WorkerGlobalScope</a> has a <b>document policy</b>, which is a
+      * A {{WorkerGlobalScope}} has a <b>document policy</b>, which is a
         <a>document policy</a>, which is initially empty.
 
     * In the <a>run a worker</a> algorithm, immediately after the step which
-      reads "Initialise <var ignore>worker global scope</var>'s <a>policy
+      reads "Initialise <var ignore>worker global scope</var>'s <a for="WorkerGlobalScope">policy
       container</a> given <var ignore>worker global scope</var>, <var
       ignore>response</var>, and <var ignore>inside settings</var>", add the
       following step:
@@ -748,10 +748,10 @@ spec: FETCH; urlPrefix: https://fetch.spec.whatwg.org/
     [=response=] (|response|), this algorithm returns a <a>document policy</a>.
 
     1. Let |creatorPolicy| be null.
-    1. If |outsideSettings|'s <a>global object</a> is a <a>WorkerGlobalScope</a>,
-        then set |creatorPolicy| to |outsideSettings|'s <a>global object</a>'s
+    1. If |outsideSettings|'s <a for="environment settings object">global object</a> is a {{WorkerGlobalScope}},
+        then set |creatorPolicy| to |outsideSettings|'s <a for="environment settings object">global object</a>'s
         document policy.
-    1. Otherwise, set |creatorPolicy| to |outsideSettings|'s <a>global
+    1. Otherwise, set |creatorPolicy| to |outsideSettings|'s <a for="environment settings object">global
         object</a>'s <a>associated Document</a>'s document policy.
     1. If |response|'s <a for="response">URL</a>'s [=url/scheme=] is a
         [=local scheme=], then return a clone of |creatorPolicy|.
