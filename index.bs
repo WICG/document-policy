@@ -531,10 +531,11 @@ spec: FETCH; urlPrefix: https://fetch.spec.whatwg.org/
       * A <a>WorkerGlobalScope</a> has a <b>document policy</b>, which is a
         <a>document policy</a>, which is initially empty.
 
-    * In the <a>run a worker</a> algorithm:
-      * After the step which sets up the worker's <var ignore>worker global
-        scope</var> from the fetched <var ignore>response</var>, add the
-        following step:
+    * In the <a>run a worker</a> algorithm, immediately after the step which
+      reads "Initialise <var ignore>worker global scope</var>'s <a>policy
+      container</a> given <var ignore>worker global scope</var>, <var
+      ignore>response</var>, and <var ignore>inside settings</var>", add the
+      following step:
 
         1. Set <var ignore>worker global scope</var>'s document policy to the
           result of <a data-lt="create-document-policy-for-worker">creating a
