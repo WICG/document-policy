@@ -768,9 +768,7 @@ spec: FETCH; urlPrefix: https://fetch.spec.whatwg.org/
 
     Note: Unlike a document, a worker has no [=required document policy=], so a
     worker's declared policy is applied as-is rather than being checked for
-    compatibility. Local-scheme workers inherit their creator's document policy
-    directly, mirroring how the policy container is inherited for such workers in
-    [[HTML]].
+    compatibility.
   </section>
 
   <section>
