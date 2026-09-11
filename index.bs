@@ -34,6 +34,10 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
   urlPrefix: browsing-the-web.html
     type: dfn
       text: process a navigate fetch
+spec: RFC8941; urlPrefix: https://datatracker.ietf.org/doc/html/rfc8941#
+  type: dfn
+    text: sf-dictionary; url: dictionary
+    text: sf-token; url: token
 </pre>
 
 <section>
@@ -141,7 +145,7 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
     configuration points in use attached to this document.
 
     A <a>configuration point</a> has a <dfn
-    for="configuration point">name</dfn>, which is a token.
+    for="configuration point">name</dfn>, which is a [=sf-token|token=].
 
     A <a>configuration point</a> has a <dfn
     for="configuration point">type</dfn>, which is one of:
@@ -261,7 +265,7 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
 
     If violations for many or all features should be sent to the same endpoint,
     then it may be easier to define a single default <a>endpoint</a>. This can
-    be defined by a parameter on the special token `*`. If a default
+    be defined by a parameter on the special [=sf-token|token=] `*`. If a default
     <a>endpoint</a> is provided, then unless otherwise specified, all violation
     reports will be sent to that named endpoint. If a feature also specifies its
     own endpoint, with the `report-to` parameter, then reports will go to that
@@ -283,7 +287,7 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
     Example:
     ```
     Document-Policy: something=1.0;report-to=none, something-else=?0,
-                     *;report-to=endpoiont
+                     *;report-to=endpoint
     ```
 
   </section>
@@ -318,19 +322,19 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
     ## Policies as Structured Headers ## {#policies-as-structured-headers}
 
     Policies are represented in HTTP headers and in HTML attributes as the
-    serialization of an sh-dictionary structure. Each dictionary member is a
+    serialization of an <a>sf-dictionary</a> structure. Each dictionary member is a
     <a>document policy directive</a>.
 
     A <dfn export>document policy directive</dfn> is an element of a
     <a>serialized document policy</a>, and consists of a <a
-    for="document policy directive">directive name</a>, which is an sh-token,
+    for="document policy directive">directive name</a>, which is an <a>sf-token</a>,
     and associated <a
     href="#document-policy-directive-parameters">parameters</a>.
 
     A <dfn for="document policy directive">directive name</dfn> may be one of:
 
     * The <a for="configuration point">name</a> of a <a>configuration point</a>
-    * The Token "`*`".
+    * The [=sf-token|Token=] "`*`".
 
     A <dfn export>policy value</dfn> is an element of the <a for="configuration
     point">range</a> for the named <a>configuration point</a>.
@@ -338,7 +342,7 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
     ### Parameters ### {#document-policy-directive-parameters}
 
     Any <a>document policy directive</a> may include a parameter named
-    `report-to`, whose value must be a string.
+    `report-to`, whose value must be a [=sf-token|token=].
 
     A <a>document policy directive</a> whose <a for="document policy
     directive">directive name</a> names a <a>configuration point</a> with
@@ -358,7 +362,7 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
     A <a>document policy directive</a> whose <a for="document policy
     directive">directive name</a> names a <a>configuration point</a> with
     <a for="configuration point">type</a> `enum` has a required parameter, whose value must be 'true',
-    and whose name must be a token in the <a>configuration point</a>'s <a
+    and whose name must be a [=sf-token|token=] in the <a>configuration point</a>'s <a
     for="configuration point">range</a>.
 
     Examples:
@@ -382,7 +386,7 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
     The <code>Document-Policy</code> header is a Structured Header. Its value
     must be a dictionary. Its ABNF is:
 
-    Document-Policy = sh-dictionary
+    Document-Policy = <a>sf-dictionary</a>
 
     If any dictionary member name does not name a supported configuration point
     or the special value "*", then the dictionary memver will be ignored by the
@@ -582,7 +586,7 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
     1. Let |defaultEndpoint| be a new string, set to null.
     1. For each |name|->(|value|,|parameters|) in |header|,
         1. Let |currentEndpoint| be a new string, set to null.
-        1. If |parameters|["report-to"] exists, and is a string, then:
+        1. If |parameters|["report-to"] exists, and is a [=sf-token|token=], then:
             1. Set |currentEndpoint| to the value of |parameters|["report-to"].
         1. If |name| is the string "`*`", then:
             1. Set |defaultEndpoint| to |currentEndpoint|.
@@ -601,7 +605,7 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
                   |currentEndpoint|.
                 1. Continue with the next |element|.
             1. If |configuration point|'s type is enum, then:
-                1. If |value| is not a Token, then fail.
+                1. If |value| is not a [=sf-token|Token=], then fail.
                 1. If |value| is not the name of one of |configuration point|s
                   allowed enum values, then fail.
                 1. Set |policy|[|configuration point|] to a new enum <a>policy
