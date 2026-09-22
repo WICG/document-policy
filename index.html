@@ -838,7 +838,7 @@ A human-readable <a href="https://www.w3.org/community/about/agreements/cla-deed
     Configuration points should be defined in the specification which describes
     the underlying API or behavior, although there is a registry of defined
     configuration points in use attached to this document.</p>
-     <p>A <a data-link-type="dfn" href="#configuration-point" id="ref-for-configuration-point">configuration point</a> has a <dfn class="dfn-paneled" data-dfn-for="configuration point" data-dfn-type="dfn" data-noexport id="configuration-point-name">name</dfn>, which is a token.</p>
+     <p>A <a data-link-type="dfn" href="#configuration-point" id="ref-for-configuration-point">configuration point</a> has a <dfn class="dfn-paneled" data-dfn-for="configuration point" data-dfn-type="dfn" data-noexport id="configuration-point-name">name</dfn>, which is a <a data-link-type="dfn" href="https://datatracker.ietf.org/doc/html/rfc8941#token" id="ref-for-token">token</a>.</p>
      <p>A <a data-link-type="dfn" href="#configuration-point" id="ref-for-configuration-point①">configuration point</a> has a <dfn class="dfn-paneled" data-dfn-for="configuration point" data-dfn-type="dfn" data-noexport id="configuration-point-type">type</dfn>, which is one of:</p>
      <ul>
       <li data-md>
@@ -935,7 +935,7 @@ headers.</p>
      <h4 class="heading settled" data-level="6.1.2" id="reporting-default"><span class="secno">6.1.2. </span><span class="content">Setting the default reporting endpoint</span><a class="self-link" href="#reporting-default"></a></h4>
      <p>If violations for many or all features should be sent to the same endpoint,
     then it may be easier to define a single default <a data-link-type="dfn" href="https://w3c.github.io/reporting/#endpoint" id="ref-for-endpoint①">endpoint</a>. This can
-    be defined by a parameter on the special token <code>*</code>. If a default
+    be defined by a parameter on the special <a data-link-type="dfn" href="https://datatracker.ietf.org/doc/html/rfc8941#token" id="ref-for-token①">token</a> <code>*</code>. If a default
     <a data-link-type="dfn" href="https://w3c.github.io/reporting/#endpoint" id="ref-for-endpoint②">endpoint</a> is provided, then unless otherwise specified, all violation
     reports will be sent to that named endpoint. If a feature also specifies its
     own endpoint, with the <code>report-to</code> parameter, then reports will go to that
@@ -951,7 +951,7 @@ headers.</p>
     feature.</p>
      <p>Example:</p>
 <pre>Document-Policy: something=1.0;report-to=none, something-else=?0,
-                 *;report-to=endpoiont
+                 *;report-to=endpoint
 </pre>
     </section>
     <section>
@@ -975,22 +975,22 @@ headers.</p>
     <section>
      <h3 class="heading settled" data-level="7.1" id="policies-as-structured-headers"><span class="secno">7.1. </span><span class="content">Policies as Structured Headers</span><a class="self-link" href="#policies-as-structured-headers"></a></h3>
      <p>Policies are represented in HTTP headers and in HTML attributes as the
-    serialization of an sh-dictionary structure. Each dictionary member is a
+    serialization of an <a data-link-type="dfn" href="https://datatracker.ietf.org/doc/html/rfc8941#dictionary" id="ref-for-dictionary">sf-dictionary</a> structure. Each dictionary member is a
     <a data-link-type="dfn" href="#document-policy-directive" id="ref-for-document-policy-directive">document policy directive</a>.</p>
      <p>A <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="document-policy-directive">document policy directive</dfn> is an element of a
-    <a data-link-type="dfn" href="#serialized-document-policy" id="ref-for-serialized-document-policy">serialized document policy</a>, and consists of a <a data-link-type="dfn" href="#document-policy-directive-directive-name" id="ref-for-document-policy-directive-directive-name">directive name</a>, which is an sh-token,
+    <a data-link-type="dfn" href="#serialized-document-policy" id="ref-for-serialized-document-policy">serialized document policy</a>, and consists of a <a data-link-type="dfn" href="#document-policy-directive-directive-name" id="ref-for-document-policy-directive-directive-name">directive name</a>, which is an <a data-link-type="dfn" href="https://datatracker.ietf.org/doc/html/rfc8941#token" id="ref-for-token②">sf-token</a>,
     and associated <a href="#document-policy-directive-parameters">parameters</a>.</p>
      <p>A <dfn class="dfn-paneled" data-dfn-for="document policy directive" data-dfn-type="dfn" data-noexport id="document-policy-directive-directive-name">directive name</dfn> may be one of:</p>
      <ul>
       <li data-md>
        <p>The <a data-link-type="dfn" href="#configuration-point-name" id="ref-for-configuration-point-name">name</a> of a <a data-link-type="dfn" href="#configuration-point" id="ref-for-configuration-point⑥">configuration point</a></p>
       <li data-md>
-       <p>The Token "<code>*</code>".</p>
+       <p>The <a data-link-type="dfn" href="https://datatracker.ietf.org/doc/html/rfc8941#token" id="ref-for-token③">Token</a> "<code>*</code>".</p>
      </ul>
      <p>A <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="policy-value">policy value</dfn> is an element of the <a data-link-type="dfn" href="#configuration-point-range" id="ref-for-configuration-point-range②">range</a> for the named <a data-link-type="dfn" href="#configuration-point" id="ref-for-configuration-point⑦">configuration point</a>.</p>
      <h4 class="heading settled" data-level="7.1.1" id="document-policy-directive-parameters"><span class="secno">7.1.1. </span><span class="content">Parameters</span><a class="self-link" href="#document-policy-directive-parameters"></a></h4>
      <p>Any <a data-link-type="dfn" href="#document-policy-directive" id="ref-for-document-policy-directive①">document policy directive</a> may include a parameter named
-    <code>report-to</code>, whose value must be a string.</p>
+    <code>report-to</code>, whose value must be a <a data-link-type="dfn" href="https://datatracker.ietf.org/doc/html/rfc8941#token" id="ref-for-token④">token</a>.</p>
      <p>A <a data-link-type="dfn" href="#document-policy-directive" id="ref-for-document-policy-directive②">document policy directive</a> whose <a data-link-type="dfn" href="#document-policy-directive-directive-name" id="ref-for-document-policy-directive-directive-name①">directive name</a> names a <a data-link-type="dfn" href="#configuration-point" id="ref-for-configuration-point⑧">configuration point</a> with
     <a data-link-type="dfn" href="#configuration-point-type" id="ref-for-configuration-point-type①">type</a> <code>boolean</code> has no required parameters.</p>
      <p>A <a data-link-type="dfn" href="#document-policy-directive" id="ref-for-document-policy-directive③">document policy directive</a> whose <a data-link-type="dfn" href="#document-policy-directive-directive-name" id="ref-for-document-policy-directive-directive-name②">directive name</a> names a <a data-link-type="dfn" href="#configuration-point" id="ref-for-configuration-point⑨">configuration point</a> with
@@ -1001,7 +1001,7 @@ headers.</p>
     in the <a data-link-type="dfn" href="#configuration-point" id="ref-for-configuration-point①②">configuration point</a>’s <a data-link-type="dfn" href="#configuration-point-range" id="ref-for-configuration-point-range④">range</a>.</p>
      <p>A <a data-link-type="dfn" href="#document-policy-directive" id="ref-for-document-policy-directive⑤">document policy directive</a> whose <a data-link-type="dfn" href="#document-policy-directive-directive-name" id="ref-for-document-policy-directive-directive-name④">directive name</a> names a <a data-link-type="dfn" href="#configuration-point" id="ref-for-configuration-point①③">configuration point</a> with
     <a data-link-type="dfn" href="#configuration-point-type" id="ref-for-configuration-point-type④">type</a> <code>enum</code> has a required parameter, whose value must be 'true',
-    and whose name must be a token in the <a data-link-type="dfn" href="#configuration-point" id="ref-for-configuration-point①④">configuration point</a>’s <a data-link-type="dfn" href="#configuration-point-range" id="ref-for-configuration-point-range⑤">range</a>.</p>
+    and whose name must be a <a data-link-type="dfn" href="https://datatracker.ietf.org/doc/html/rfc8941#token" id="ref-for-token⑤">token</a> in the <a data-link-type="dfn" href="#configuration-point" id="ref-for-configuration-point①④">configuration point</a>’s <a data-link-type="dfn" href="#configuration-point-range" id="ref-for-configuration-point-range⑤">range</a>.</p>
      <p>Examples:</p>
      <ul>
       <li data-md>
@@ -1025,7 +1025,7 @@ headers.</p>
     <a data-link-type="dfn" href="#document-policy" id="ref-for-document-policy④">document policy</a> that should be enforced by the client.</p>
       <p>The <code>Document-Policy</code> header is a Structured Header. Its value
     must be a dictionary. Its ABNF is:</p>
-      <p>Document-Policy = sh-dictionary</p>
+      <p>Document-Policy = <a data-link-type="dfn" href="https://datatracker.ietf.org/doc/html/rfc8941#dictionary" id="ref-for-dictionary①">sf-dictionary</a></p>
       <p>If any dictionary member name does not name a supported configuration point
     or the special value "*", then the dictionary memver will be ignored by the
     processing steps.</p>
@@ -1253,7 +1253,7 @@ blocked due to document policy</a></p>
          <li data-md>
           <p>Let <var>currentEndpoint</var> be a new string, set to null.</p>
          <li data-md>
-          <p>If <var>parameters</var>["report-to"] exists, and is a string, then:</p>
+          <p>If <var>parameters</var>["report-to"] exists, and is a <a data-link-type="dfn" href="https://datatracker.ietf.org/doc/html/rfc8941#token" id="ref-for-token⑥">token</a>, then:</p>
           <ol>
            <li data-md>
             <p>Set <var>currentEndpoint</var> to the value of <var>parameters</var>["report-to"].</p>
@@ -1290,7 +1290,7 @@ next <var>element</var>.</p>
             <p>If <var>configuration point</var>’s type is enum, then:</p>
             <ol>
              <li data-md>
-              <p>If <var>value</var> is not a Token, then fail.</p>
+              <p>If <var>value</var> is not a <a data-link-type="dfn" href="https://datatracker.ietf.org/doc/html/rfc8941#token" id="ref-for-token⑦">Token</a>, then fail.</p>
              <li data-md>
               <p>If <var>value</var> is not the name of one of <var>configuration point</var>s
 allowed enum values, then fail.</p>
@@ -1871,6 +1871,12 @@ calling <a data-link-type="dfn" href="#determine-compatibility" id="ref-for-dete
     <ul>
      <li><span class="dfn-paneled" id="9239678f">endpoint</span>
     </ul>
+   <li>
+    <a data-link-type="biblio">[RFC8941]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="92871e3b">sf-dictionary</span>
+     <li><span class="dfn-paneled" id="bb423dc4">sf-token</span>
+    </ul>
   </ul>
   <h2 class="heading no-num no-ref settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
   <h3 class="heading no-num no-ref settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
@@ -1887,6 +1893,8 @@ calling <a data-link-type="dfn" href="#determine-compatibility" id="ref-for-dete
    <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
    <dt id="biblio-rfc3864">[RFC3864]
    <dd>G. Klyne; M. Nottingham; J. Mogul. <a href="https://www.rfc-editor.org/info/rfc3864/"><cite>Registration Procedures for Message Header Fields</cite></a>. September 2004. Best Current Practice. URL: <a href="https://www.rfc-editor.org/info/rfc3864/">https://www.rfc-editor.org/info/rfc3864/</a>
+   <dt id="biblio-rfc8941">[RFC8941]
+   <dd>M. Nottingham; P-H. Kamp. <a href="https://httpwg.org/specs/rfc8941.html"><cite>Structured Field Values for HTTP</cite></a>. February 2021. Proposed Standard. URL: <a href="https://httpwg.org/specs/rfc8941.html">https://httpwg.org/specs/rfc8941.html</a>
   </dl>
   <h3 class="heading no-num no-ref settled" id="informative"><span class="content">Non-Normative References</span><a class="self-link" href="#informative"></a></h3>
   <dl>
@@ -2121,9 +2129,11 @@ let dfnPanelData = {
 "85394472": {"dfnID":"85394472","dfnText":"Document","external":true,"refSections":[{"refs":[{"id":"ref-for-document"}],"title":"9.8. Get policy value for feature in document"},{"refs":[{"id":"ref-for-document\u2460"}],"title":"9.9. Determine compatibility of value with policy for feature"},{"refs":[{"id":"ref-for-document\u2461"}],"title":"9.10. Determine if value is compatible with policy for feature or report"},{"refs":[{"id":"ref-for-document\u2462"}],"title":"9.11. Determine if value is compatible with policy for feature"}],"url":"https://dom.spec.whatwg.org/#document"},
 "87fcd40c": {"dfnID":"87fcd40c","dfnText":"iframe","external":true,"refSections":[{"refs":[{"id":"ref-for-the-iframe-element"}],"title":"7.3. The policy attribute of the iframe element"},{"refs":[{"id":"ref-for-the-iframe-element\u2460"}],"title":"8.1. Integration with HTML"}],"url":"https://html.spec.whatwg.org/multipage/iframe-embed-object.html#the-iframe-element"},
 "9239678f": {"dfnID":"9239678f","dfnText":"endpoint","external":true,"refSections":[{"refs":[{"id":"ref-for-endpoint"}],"title":"6.1.1. The \"report-to\" parameter"},{"refs":[{"id":"ref-for-endpoint\u2460"},{"id":"ref-for-endpoint\u2461"}],"title":"6.1.2. Setting the default reporting endpoint"},{"refs":[{"id":"ref-for-endpoint\u2462"}],"title":"9.9. Determine compatibility of value with policy for feature"}],"url":"https://w3c.github.io/reporting/#endpoint"},
+"92871e3b": {"dfnID":"92871e3b","dfnText":"sf-dictionary","external":true,"refSections":[{"refs":[{"id":"ref-for-dictionary"}],"title":"7.1. Policies as Structured Headers"},{"refs":[{"id":"ref-for-dictionary\u2460"}],"title":"7.2.1. Document-Policy"}],"url":"https://datatracker.ietf.org/doc/html/rfc8941#dictionary"},
 "a41102eb": {"dfnID":"a41102eb","dfnText":"permissions policy","external":true,"refSections":[{"refs":[{"id":"ref-for-concept-document-permissions-policy"}],"title":"8.1. Integration with HTML"}],"url":"https://html.spec.whatwg.org/multipage/dom.html#concept-document-permissions-policy"},
 "a973e0fe": {"dfnID":"a973e0fe","dfnText":"document","external":true,"refSections":[{"refs":[{"id":"ref-for-concept-document"},{"id":"ref-for-concept-document\u2460"},{"id":"ref-for-concept-document\u2461"}],"title":"4.2. Policies"},{"refs":[{"id":"ref-for-concept-document\u2462"},{"id":"ref-for-concept-document\u2463"},{"id":"ref-for-concept-document\u2464"}],"title":"8.1. Integration with HTML"}],"url":"https://dom.spec.whatwg.org/#concept-document"},
 "aa0ee8c8": {"dfnID":"aa0ee8c8","dfnText":"creating a new browsing context","external":true,"refSections":[{"refs":[{"id":"ref-for-creating-a-new-browsing-context"}],"title":"8.1. Integration with HTML"}],"url":"https://html.spec.whatwg.org/multipage/browsers.html#creating-a-new-browsing-context"},
+"bb423dc4": {"dfnID":"bb423dc4","dfnText":"sf-token","external":true,"refSections":[{"refs":[{"id":"ref-for-token"}],"title":"4.1. Configuration Points"},{"refs":[{"id":"ref-for-token\u2460"}],"title":"6.1.2. Setting the default reporting endpoint"},{"refs":[{"id":"ref-for-token\u2461"},{"id":"ref-for-token\u2462"}],"title":"7.1. Policies as Structured Headers"},{"refs":[{"id":"ref-for-token\u2463"},{"id":"ref-for-token\u2464"}],"title":"7.1.1. Parameters"},{"refs":[{"id":"ref-for-token\u2465"},{"id":"ref-for-token\u2466"}],"title":"9.2. Parse document policy"}],"url":"https://datatracker.ietf.org/doc/html/rfc8941#token"},
 "cc601639": {"dfnID":"cc601639","dfnText":"container document","external":true,"refSections":[{"refs":[{"id":"ref-for-nav-container-document"}],"title":"9.4. Create a required policy for a browsing context"}],"url":"https://html.spec.whatwg.org/multipage/document-sequences.html#nav-container-document"},
 "configuration-point": {"dfnID":"configuration-point","dfnText":"configuration point","external":false,"refSections":[{"refs":[{"id":"ref-for-configuration-point"},{"id":"ref-for-configuration-point\u2460"},{"id":"ref-for-configuration-point\u2461"},{"id":"ref-for-configuration-point\u2462"}],"title":"4.1. Configuration Points"},{"refs":[{"id":"ref-for-configuration-point\u2463"},{"id":"ref-for-configuration-point\u2464"}],"title":"4.2. Policies"},{"refs":[{"id":"ref-for-configuration-point\u2465"},{"id":"ref-for-configuration-point\u2466"}],"title":"7.1. Policies as Structured Headers"},{"refs":[{"id":"ref-for-configuration-point\u2467"},{"id":"ref-for-configuration-point\u2468"},{"id":"ref-for-configuration-point\u2460\u24ea"},{"id":"ref-for-configuration-point\u2460\u2460"},{"id":"ref-for-configuration-point\u2460\u2461"},{"id":"ref-for-configuration-point\u2460\u2462"},{"id":"ref-for-configuration-point\u2460\u2463"}],"title":"7.1.1. Parameters"}],"url":"#configuration-point"},
 "configuration-point-default-value": {"dfnID":"configuration-point-default-value","dfnText":"default value","external":false,"refSections":[{"refs":[{"id":"ref-for-configuration-point-default-value"}],"title":"4.1. Configuration Points"},{"refs":[{"id":"ref-for-configuration-point-default-value\u2460"}],"title":"9.8. Get policy value for feature in document"},{"refs":[{"id":"ref-for-configuration-point-default-value\u2461"},{"id":"ref-for-configuration-point-default-value\u2462"}],"title":"9.9. Determine compatibility of value with policy for feature"}],"url":"#configuration-point-default-value"},
@@ -2574,6 +2584,8 @@ let refsData = {
 "#serialize-required-policy": {"displayText":"serialize required policy","export":true,"for_":[],"level":"1","normative":true,"shortname":"document-policy","spec":"document-policy-1","status":"local","text":"serialize required policy","type":"dfn","url":"#serialize-required-policy"},
 "#serialized-document-policy": {"displayText":"serialized document policy","export":true,"for_":[],"level":"1","normative":true,"shortname":"document-policy","spec":"document-policy-1","status":"local","text":"serialized document policy","type":"dfn","url":"#serialized-document-policy"},
 "#should-response-to-request-be-blocked-due-to-document-policy": {"displayText":"should response to request be blocked due to document policy","export":true,"for_":[],"level":"1","normative":true,"shortname":"document-policy","spec":"document-policy-1","status":"local","text":"should response to request be blocked due to document policy","type":"dfn","url":"#should-response-to-request-be-blocked-due-to-document-policy"},
+"https://datatracker.ietf.org/doc/html/rfc8941#dictionary": {"displayText":"sf-dictionary","export":true,"for_":[],"level":"","normative":true,"shortname":"rfc8941","spec":"rfc8941","status":"anchor-block","text":"sf-dictionary","type":"dfn","url":"https://datatracker.ietf.org/doc/html/rfc8941#dictionary"},
+"https://datatracker.ietf.org/doc/html/rfc8941#token": {"displayText":"sf-token","export":true,"for_":[],"level":"","normative":true,"shortname":"rfc8941","spec":"rfc8941","status":"anchor-block","text":"sf-token","type":"dfn","url":"https://datatracker.ietf.org/doc/html/rfc8941#token"},
 "https://dom.spec.whatwg.org/#concept-document": {"displayText":"document","export":true,"for_":[],"level":"1","normative":true,"shortname":"dom","spec":"dom","status":"current","text":"document","type":"dfn","url":"https://dom.spec.whatwg.org/#concept-document"},
 "https://dom.spec.whatwg.org/#concept-document-content-type": {"displayText":"content type","export":true,"for_":["Document"],"level":"1","normative":true,"shortname":"dom","spec":"dom","status":"current","text":"content type","type":"dfn","url":"https://dom.spec.whatwg.org/#concept-document-content-type"},
 "https://dom.spec.whatwg.org/#concept-document-quirks": {"displayText":"quirks mode","export":true,"for_":[],"level":"1","normative":true,"shortname":"dom","spec":"dom","status":"current","text":"quirks mode","type":"dfn","url":"https://dom.spec.whatwg.org/#concept-document-quirks"},
