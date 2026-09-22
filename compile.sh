@@ -16,7 +16,7 @@ for SPEC in $FILES; do
     bikeshed -f spec $SPEC
   else
     SPEC_OUT=${SPEC%.bs}.html
-    HTTP_STATUS=$(curl https://api.csswg.org/bikeshed/ \
+    HTTP_STATUS=$(curl https://www.w3.org/publications/spec-generator/?type=bikeshed-spec \
                        --output ${SPEC_OUT} \
                        --write-out "%{http_code}" \
                        --header "Accept: text/plain, text/html" \
