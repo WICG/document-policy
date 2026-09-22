@@ -13,6 +13,8 @@ Markup Shorthands: css no, markdown yes
 </pre>
 <pre class="link-defaults">
 spec:dom; type:interface; for:/; text:Document
+spec:dom; type:dfn; for:/; text:document
+spec:dom; type:dfn; text:content type
 spec:html; type:dfn; for:/; text:origin
 spec:fetch; type:dfn; for:Response; text:response
 spec:html; type:dfn; for:/; text:browsing context
@@ -27,20 +29,11 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
     type: dfn
       text: creating a new browsing context
       text: initialise the document object
-</pre>
-<pre class="biblio">
-{
-  "HEADER-STRUCTURE": {
-    "authors": [
-      "Mark Nottingham",
-      "Poul-Henning Kamp"
-    ],
-    "href": "https://tools.ietf.org/html/draft-ietf-httpbis-header-structure-14",
-    "title": "Structured Headers for HTTP",
-    "status": "Draft",
-    "publisher": "IETF"
-  }
-}
+      text: nested browsing context
+      text: browsing context container
+  urlPrefix: browsing-the-web.html
+    type: dfn
+      text: process a navigate fetch
 </pre>
 
 <section>
@@ -189,17 +182,17 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
     and which may be null.
 
     A <a>browsing context</a> has a <dfn>required document policy</dfn>, which
-    is a <a>document policy</a>. A <a>browsing context</a> with a null <a>opener
+    is a <a for="/">document policy</a>. A <a>browsing context</a> with a null <a>opener
     browsing context</a> has an empty <a>required document policy</a>.
 
     A <a>Document</a> has a <dfn>nested context required document policy</dfn>,
-    which is a <a>document policy</a>.
+    which is a <a for="/">document policy</a>.
 
     A <a>Document</a> has a <dfn for="Document">document policy</dfn>, which is a
     <a for="/">document policy</a>.
 
     A <a>Document</a> has a <dfn>report-only document policy</dfn>, which is a
-    <a>document policy</a>.
+    <a for="/">document policy</a>.
   </section>
 </section>
 
@@ -339,9 +332,8 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
     * The <a for="configuration point">name</a> of a <a>configuration point</a>
     * The Token "`*`".
 
-    A <dfn>policy value</dfn> is an element of the <a for="configuration
+    A <dfn export>policy value</dfn> is an element of the <a for="configuration
     point">range</a> for the named <a>configuration point</a>.
-  </section>
 
     ### Parameters ### {#document-policy-directive-parameters}
 
@@ -350,22 +342,22 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
 
     A <a>document policy directive</a> whose <a for="document policy
     directive">directive name</a> names a <a>configuration point</a> with
-    <a>type</a> `boolean` has no required parameters.
+    <a for="configuration point">type</a> `boolean` has no required parameters.
 
     A <a>document policy directive</a> whose <a for="document policy
     directive">directive name</a> names a <a>configuration point</a> with
-    <a>type</a> `integer` has a required parameter, whose value must be an
+    <a for="configuration point">type</a> `integer` has a required parameter, whose value must be an
     integer in the <a>configuration point</a>'s <a for="configuration
     point">range</a>.
 
     A <a>document policy directive</a> whose <a for="document policy
     directive">directive name</a> names a <a>Configuration point</a> with
-    <a>type</a> `float` has a required parameter, whose value must be a decimal
+    <a for="configuration point">type</a> `float` has a required parameter, whose value must be a decimal
     in the <a>configuration point</a>'s <a for="configuration point">range</a>.
 
     A <a>document policy directive</a> whose <a for="document policy
     directive">directive name</a> names a <a>configuration point</a> with
-    <a>type</a> `enum` has a required parameter, whose value must be 'true',
+    <a for="configuration point">type</a> `enum` has a required parameter, whose value must be 'true',
     and whose name must be a token in the <a>configuration point</a>'s <a
     for="configuration point">range</a>.
 
@@ -385,7 +377,7 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
     The &#96;<dfn export http-header
     id="document-policy-header"><code>Document-Policy</code></dfn>&#96; HTTP
     header can be used in the [=response=] (server to client) to communicate the
-    <a>document policy</a> that should be enforced by the client.
+    <a for="/">document policy</a> that should be enforced by the client.
 
     The <code>Document-Policy</code> header is a Structured Header. Its value
     must be a dictionary. Its ABNF is:
@@ -426,7 +418,7 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
     The &#96;<dfn export http-header
     id="sec-required-document-policy-header">`Sec-Required-Document-Policy`</dfn>&#96;
     HTTP header field is a request header which is used to communicate to the
-    server the <a>document policy</a> which must be sent with the document
+    server the <a for="/">document policy</a> which must be sent with the document
     returned with the request.
 
     The header's value is the <a href="#serialization"></a> of one or more
@@ -469,11 +461,11 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
         initialized. Its value must be a <a>serialized document policy</a>.
 
     * In [[HTML#the-document-object]], add the following lines:
-      * The <a>Document</a> has a <b>document policy</b>, which is a <a>document
+      * The <a>Document</a> has a <b>document policy</b>, which is a <a for="/">document
         policy</a>, which is initially empty.
 
       * The <a>Document</a> has a <b>nested context required document
-        policy</b>, which is a <a>document policy</a>, which is initially
+        policy</b>, which is a <a for="/">document policy</a>, which is initially
         empty.
 
     * In the <a>creating a new browsing context</a> algorithm:
@@ -531,7 +523,7 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
 
       * A [=Request/request=] has an associated <dfn
         data-lt="request-required-document-policy">required document
-        policy</dfn>, which is a <a>document policy</a>. Unless otherwise
+        policy</dfn>, which is a <a for="/">document policy</a>. Unless otherwise
         stated, it is null.
 
     * In [[FETCH#http-network-or-cache-fetch]], after step 15, insert the
@@ -564,7 +556,7 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
     ## <dfn export>Is policy compatible</dfn>? ## {#algo-is-policy-compatible}
 
     <div class="algorithm" data-algorithm="is-policy-compatible">
-    Given two <a>document policies</a>, |requiredPolicy| and |declaredPolicy|,
+    Given two <a for="/">document policies</a>, |requiredPolicy| and |declaredPolicy|,
     this algorithm returns true if |declaredPolicy| is compatible with
     |requiredPolicy|, or false otherwise.
 
@@ -579,11 +571,10 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
   </section>
 
   <section>
-  <section>
     ## <dfn export>Parse document policy</dfn> ## {#algo-parse-document-policy}
 
     <div class="algorithm" data-algorithm="parse-document-policy">
-    Given a dictionary (|header|), this algorithm returns a <a>document
+    Given a dictionary (|header|), this algorithm returns a <a for="/">document
     policy</a>, if it can be parsed as one, or else fails.
 
     1. If |header| is null, then return null.
@@ -653,7 +644,7 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
     ## <dfn export>Serialize required policy</dfn> ## {#algo-serialize-required-policy}
 
     <div class="algorithm" data-algorithm="serialize-required-policy">
-    Given a <a>document policy</a> (|requiredPolicy|), this algorithm returns a
+    Given a <a for="/">document policy</a> (|requiredPolicy|), this algorithm returns a
     string which represents the canonical serialization of the policy.
 
     1. Let |dict| be a new ordered map.
@@ -672,7 +663,7 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
 
     <div class="algorithm" data-algorithm="create-for-browsingcontext">
     Given a <a>browsing context</a> (|browsingContext|), this algorithm returns
-    a new <a>Document Policy</a>.
+    a new <a for="/">Document Policy</a>.
 
     1. If |browsingContext| is a <a>nested browsing context</a>, then
         1. Let |requiredPolicy| be a clone of |browsingContext|'s [=container document=]'s
@@ -696,7 +687,7 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
 
     <div class="algorithm" data-algorithm="create-document-policy">
     Given a <a>browsing context</a> (|browsingContext|) and a [=response=]
-    (|response|), this algorithm returns a new <a>Document Policy</a>.
+    (|response|), this algorithm returns a new <a for="/">Document Policy</a>.
 
     1. Let |requiredPolicy| be the result of running <a
         data-lt="create-for-browsingcontext">Create a required policy for a
@@ -718,7 +709,7 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
 
     <div class="algorithm" data-algorithm="create-nested-context-required-document-policy">
     Given a <a>browsing context</a> (|browsingContext|) and a [=response=]
-    (|response|), this algorithm returns a new <a>Document Policy</a>.
+    (|response|), this algorithm returns a new <a for="/">Document Policy</a>.
 
     1. Let |requiredPolicy| be a clone of |browsingContext|'s <a>required document policy</a>.
     1. Let |header| be the result of calling [=header list/get a
@@ -763,11 +754,11 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
 
     <div class="algorithm" data-algorithm="get-policy-value">
     Given a feature (|feature|) and a {{Document}} object (|document|), this
-    algorithm returns the value for |feature| in |document|'s <a>document
+    algorithm returns the value for |feature| in |document|'s <a for="Document">document
     policy</a>.
 
-      1. Let |policy| be |document|'s <a>Document Policy</a>.
-      1. If |policy|[|feature|] exists, return its <a>value</a>.
+      1. Let |policy| be |document|'s <a for="Document">Document Policy</a>.
+      1. If |policy|[|feature|] exists, return its <a for="policy configuration">value</a>.
       1. Return |feature|'s <a>default value</a>.
 
     </div>
@@ -781,9 +772,9 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
     (|document|), this algorithm returns a tuple consisting of:
 
     * An action, which is either "compatible" or "incompatible", depending on
-      whether |value| is compatible with |document|'s <a>document policy</a>,
+      whether |value| is compatible with |document|'s <a for="Document">document policy</a>,
     * A reporting endpoint name, which will be null if |value| is compatible
-      with both |document|'s <a>document policy</a> and its <a>report-only
+      with both |document|'s <a for="Document">document policy</a> and its <a>report-only
       document policy</a>, or if reporting is not configured for |feature|, or
       else will be the name of the <a lt="endpoint">reporting endpoint</a> to
       which a violation report should be sent.
@@ -791,7 +782,7 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
     Note that if the enforcing policy is stricter than the report-only policy,
     then the report-only policy will not be checked.
 
-      1. Let |policy| be |document|'s <a>Document Policy</a>.
+      1. Let |policy| be |document|'s <a for="Document">Document Policy</a>.
       1. Let |policyConfig| be |policy|[|feature|], if it exists, or a tuple
         consisting of |feature|'s <a>default value</a> and null, otherwise.
       1. Let |policyValue| and |reporting endpoint| be the elements of
@@ -818,7 +809,7 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
     <div class="algorithm" data-algorithm="is-value-compatible-or-report">
     Given a value (|value|), a feature (|feature|) and a {{Document}} object
     (|document|), this algorithm returns "compatible" if |value| is compatible
-    with |document|'s <a>document policy</a>, or else "incompatible". It will
+    with |document|'s <a for="Document">document policy</a>, or else "incompatible". It will
     also queue a report if reporting has been configured.
 
     1. Let (|action|, |reporting endpoint|) be the result of calling
@@ -849,12 +840,12 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
   </section>
 
   <section>
-    ## <dfn export lt="is-value-compatible">Determine if value is compatible with policy for feature ## {#algo-is-value-compatible}
+    ## <dfn export lt="is-value-compatible">Determine if value is compatible with policy for feature</dfn> ## {#algo-is-value-compatible}
 
     <div class="algorithm" data-algorithm="is-value-compatible">
     Given a value (|value|), a feature (|feature|) and a {{Document}} object
     (|document|), this algorithm returns "compatible" if |value| is compatible
-    with |document|'s <a>document policy</a>, or else "incompatible".
+    with |document|'s <a for="Document">document policy</a>, or else "incompatible".
 
     1. Let (|action|, <var ignore>reporting endpoint</var>) be the result of
       calling [=determine-compatibility=] with |value|, |feature| and
